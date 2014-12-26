@@ -1,0 +1,52 @@
+CREATE TABLE USERS
+(
+	id INT PRIMARY KEY,
+	name VARCHAR(20) NOT NULL,
+	login VARCHAR(20) UNIQUE NOT NULL,
+	password CHAR(64) NOT NULL,
+	role VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE ARTICLES
+(
+	id INT PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	content VARCHAR(10000) NOT NULL,
+	numberOfViews INT DEFAULT 0,
+        user_id INT,
+	FOREIGN KEY (user_id) REFERENCES USERS(id)
+);
+
+CREATE TABLE COMMENTS
+(
+	id INT PRIMARY KEY,
+	content VARCHAR(2000),
+	numberOfLikes INT DEFAULT 0,
+	numberOfDislikes INT DEFAULT 0,
+	user_id INT NOT NULL,
+        article_id INT NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES USERS(id),
+	FOREIGN KEY (article_id) REFERENCES ARTICLES(id)
+);
+
+CREATE TABLE ARTICLES_LIKES
+(
+	id INT PRIMARY KEY,
+	value INT DEFAULT 0,
+        user_id INT NOT NULL,
+        article_id INT NOT NULL, 
+	FOREIGN KEY (user_id) REFERENCES USERS(id),
+	FOREIGN KEY (article_id) REFERENCES ARTICLES(id),
+	UNIQUE (user_id, article_id)
+);
+
+CREATE TABLE COMMENTS_LIKES
+(
+	id INT PRIMARY KEY,
+	value INT DEFAULT 0,
+        user_id INT NOT NULL,
+        comment_id INT NOT NULL, 
+	FOREIGN KEY (user_id) REFERENCES USERS(id),
+	FOREIGN KEY (comment_id) REFERENCES COMMENTS(id),
+	UNIQUE (user_id, comment_id)
+);
