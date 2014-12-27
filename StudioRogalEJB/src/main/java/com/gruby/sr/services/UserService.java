@@ -49,6 +49,11 @@ public class UserService {
     }
     
     @RolesAllowed({"Admin", "User"})
+    public List<User> findAllUsers() {
+        return em.createNamedQuery("User.findAll").getResultList();
+    }
+    
+    @RolesAllowed({"Admin", "User"})
     public List<User> findUsers() {
         if (sctx.isCallerInRole("Admin")){
             return em.createNamedQuery("User.findAll").getResultList();        

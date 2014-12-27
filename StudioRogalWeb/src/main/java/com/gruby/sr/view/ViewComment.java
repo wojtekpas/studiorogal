@@ -1,6 +1,5 @@
 package com.gruby.sr.view;
 
-import com.gruby.sr.entities.Article;
 import com.gruby.sr.entities.Comment;
 import com.gruby.sr.services.StudioRogalService;
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class ViewComment implements Serializable {
 
     @EJB
     StudioRogalService studioRogalService;
-
+        
     @Getter
     @Setter
     private int commentId;
@@ -32,10 +31,6 @@ public class ViewComment implements Serializable {
     @Getter
     @Setter
     private Comment comment;
-
-    public void setStudioRogalService(StudioRogalService studioRogalService) {
-        this.studioRogalService = studioRogalService;
-    }
     
     public void init() {
         if (comment == null) {
@@ -50,8 +45,4 @@ public class ViewComment implements Serializable {
         }
     }
     
-    public Article getArticle()
-    {
-        return comment.getArticleId();
-    }
 }

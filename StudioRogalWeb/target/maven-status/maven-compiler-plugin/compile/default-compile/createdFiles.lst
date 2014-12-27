@@ -1,8 +1,9 @@
-com\gruby\sr\view\ListArticles.class
 com\gruby\sr\view\EditComment.class
-com\gruby\sr\converters\CommentConverter.class
-com\gruby\sr\view\ListUsers.class
 com\gruby\sr\view\EditArticle.class
 com\gruby\sr\converters\ArticleConverter.class
 com\gruby\sr\view\ViewComment.class
 com\gruby\sr\view\EditUser.class
+com\gruby\sr\view\ViewArticle.class
+com\gruby\sr\view\ListArticles.class
+com\gruby\sr\converters\CommentConverter.class
+com\gruby\sr\view\ListUsers.class

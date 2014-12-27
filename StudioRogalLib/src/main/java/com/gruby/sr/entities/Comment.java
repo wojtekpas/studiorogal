@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -52,7 +53,9 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
     @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id"),
-    @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content")
+    @NamedQuery(name = "Comment.findByContent", query = "SELECT c FROM Comment c WHERE c.content = :content"),
+    @NamedQuery(name = "Comment.findByArticleId", query = "SELECT c FROM Comment c WHERE c.articleId = :articleId"),
+    @NamedQuery(name = "Comment.findByUserId", query = "SELECT c FROM Comment c WHERE c.userId = :userId")
     //@NamedQuery(name = "Comment.findByNumberOfLikes", query = "SELECT c FROM Comment c WHERE c.numberOfLikes = :numberOfLikes"),
     //@NamedQuery(name = "Comment.findByNumberOfDislikes", query = "SELECT c FROM Comment c WHERE c.numberOfDislikes = :numberOfDislikes")
 })
@@ -76,7 +79,7 @@ public class Comment implements Serializable, EntityElement {
     //private Integer numberOfDislikes;
     
     @JoinColumn(name = "articleId", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Article articleId;
     
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -84,7 +87,7 @@ public class Comment implements Serializable, EntityElement {
     private User userId;
     
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "commentId")
-    //private Collection<CommentLike> commentsLikesCollection;
+    //private List<CommentLike> commentsLikesCollection;
 /*
     public Comment() {
     }

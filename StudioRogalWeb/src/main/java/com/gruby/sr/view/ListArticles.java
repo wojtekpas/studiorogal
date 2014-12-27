@@ -24,7 +24,7 @@ public class ListArticles implements Serializable {
     
     public List<Article> getArticles() {
         if (articles == null) {
-            articles = studioRogalService.findArticles();
+            articles = studioRogalService.findAllArticles();
         }
         return articles;
     }

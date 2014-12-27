@@ -1,5 +1,6 @@
 package com.gruby.sr.view;
 
+import com.gruby.sr.entities.Article;
 import com.gruby.sr.services.StudioRogalService;
 import com.gruby.sr.entities.Comment;
 import com.gruby.sr.services.UserService;
@@ -30,6 +31,10 @@ public class EditComment implements Serializable {
     
     @EJB
     UserService userService;
+    
+    @Getter
+    @Setter
+    private int articleId;
 
     @Getter
     @Setter
@@ -44,6 +49,8 @@ public class EditComment implements Serializable {
             comment = studioRogalService.findComment(commentId);
         } else if (comment == null && commentId == 0) {
             comment = new Comment();
+            comment.setArticleId(studioRogalService.findArticle(articleId));
+            comment.setUserId(userService.getCurrentUser());
             return;
         }
         if (comment == null || userService.checkIsOwnerArticle(comment.getArticleId()) == false) {
@@ -57,6 +64,7 @@ public class EditComment implements Serializable {
 
     public String saveComment() {
         studioRogalService.saveEntityElement(comment);
-        return "list_articles?faces-redirect=true";
+        String s= "view_article?articleId="+articleId+"&faces-redirect=true";
+        return s;
     }
 }

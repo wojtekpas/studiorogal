@@ -6,6 +6,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <f:metadata>
         <f:viewParam name="commentId" value="#{editComment.commentId}" />
+        <f:viewParam name="articleId" value="#{editComment.articleId}" />
         <f:event type="preRenderView" listener="#{editComment.init()}"/>
     </f:metadata>
     <body>
@@ -16,13 +17,15 @@
             <ui:define name="content">
                 <h:form>
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="#{msg.name}:" for="name"/>
-                        <h:inputText id="name" value="#{editComment.comment.content}" required="true"/>
-                        <h:message for="name"/>
+                        <h:outputLabel value="#{msg.content}:" for="content"/>
+                        <h:inputText id="content" value="#{editComment.comment.content}" required="true"/>
+                        <h:message for="content"/>
                     </h:panelGrid>                    
                     <h:commandButton value="#{msg.save}" action="#{editComment.saveComment()}"/>
                 </h:form>
-                <h:button value="#{msg.back}" outcome="list_articles.xhtml"/>
+                <h:button value="#{msg.back}" outcome="view_article.xhtml">
+                    <f:param name="articleId" value="#{editComment.comment.articleId.id}" />
+                </h:button>
             </ui:define>
         </ui:composition>
     </body>

@@ -17,30 +17,24 @@
                     <h:column>
                         <h:outputText value="#{article.title}"/>
                     </h:column>
-                    <!--
                     <h:column>
-                        <h:dataTable value="#{article.commentsCollection}" var="comment" >
+                        <h:outputText value="#{article.numberOfComments} komentarzy"/>
+                    </h:column>
+                    <h:column>
+                        <h:dataTable value="#{article.commentsCollection}" var="comment">
                             <h:column>
-                                <h:outputText value="#{comment.content}"/>
-                            </h:column>
+                                <h:outputText value="dupa"/>
+                            </h:column>                           
                             <h:column>
-                                <h:button value="#{msg.view}" outcome="view_comment.xhtml">
-                                    <f:param name="commentId" value="#{comment.id}" />
-                                </h:button>
-                            </h:column>
-                            <h:column>
-                                <h:button value="#{msg.edit}" outcome="edit_comment.xhtml">
-                                    <f:param name="commentId" value="#{comment.id}" />
-                                </h:button>
-                            </h:column>                          
-                            <h:column>
-                                <h:form>
-                                    <h:commandButton value="#{msg.remove}" action="#{listArticles.removeComment(comment)}"/>
-                                </h:form>
+                                <h:outputText value="dupa"/>
                             </h:column>
                         </h:dataTable>
                     </h:column>
-                    -->
+                    <h:column>
+                        <h:button value="#{msg.view}" outcome="view_article.xhtml">
+                            <f:param name="articleId" value="#{article.id}" />
+                        </h:button>
+                    </h:column>
                     <h:column>
                         <h:button value="#{msg.edit}" outcome="edit_article.xhtml">
                             <f:param name="articleId" value="#{article.id}" />
@@ -53,9 +47,8 @@
                     </h:column>
                 </h:dataTable>
                 <br></br>
-                <h:form>
-                    <h:button value="#{msg.newArticle}" outcome="edit_article.xhtml"/>
-                </h:form>
+                <h:button value="#{msg.newArticle}" outcome="edit_article.xhtml"/>
+                <br></br>
                 <h:button value="#{msg.back}" outcome="/index.xhtml"/>
             </ui:define>
         </ui:composition>

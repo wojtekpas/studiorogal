@@ -55,7 +55,7 @@ public class StudioRogalService {
     }
 
     @RolesAllowed({"Admin", "User"})
-    public List<Article> findArticles() {
+    public List<Article> findAllArticles() {
         return em.createNamedQuery("Article.findAll").getResultList();
     }
 
@@ -65,8 +65,16 @@ public class StudioRogalService {
     }
     
     @RolesAllowed({"Admin", "User"})
-    public List<Comment> findComments() {
+    public List<Comment> findAllComments() {
         return em.createNamedQuery("Comment.findAll").getResultList();
+    }
+    
+    @RolesAllowed({"Admin", "User"})
+    public List<Comment> findCommentsForArticle(Article article) {
+        List<Comment> comments = em.createNamedQuery("Comment.findByArticleId").setParameter("articleId", article).getResultList();
+        System.out.println(comments.size());
+        
+        return comments;
     }
     
     @RolesAllowed({"Admin", "User"})

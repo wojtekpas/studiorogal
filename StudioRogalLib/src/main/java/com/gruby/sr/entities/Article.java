@@ -7,7 +7,9 @@ package com.gruby.sr.entities;
 
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -78,7 +80,7 @@ public class Article implements Serializable, EntityElement {
     //private Integer numberOfViews;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleId")
-    private Collection<Comment> commentsCollection;
+    private List<Comment> commentsCollection;
     
     @JoinColumn(name = "userId", referencedColumnName = "id")
     @ManyToOne
@@ -86,77 +88,8 @@ public class Article implements Serializable, EntityElement {
     
     //@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleId")
     //private Collection<ArticleLike> articlesLikesCollection;
-/*
-    public Article() {
-    }
-
-    public Article(Integer id) {
-        this.id = id;
-    }
-
-    public Article(Integer id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getNumberofviews() {
-        return numberofviews;
-    }
-
-    public void setNumberofviews(Integer numberofviews) {
-        this.numberofviews = numberofviews;
-    }
-
-    @XmlTransient
-    public Collection<Comment> getCommentsCollection() {
-        return commentsCollection;
-    }
-
-    public void setCommentsCollection(Collection<Comment> commentsCollection) {
-        this.commentsCollection = commentsCollection;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    @XmlTransient
-    public Collection<ArticleLike> getArticlesLikesCollection() {
-        return articlesLikesCollection;
-    }
-
-    public void setArticlesLikesCollection(Collection<ArticleLike> articlesLikesCollection) {
-        this.articlesLikesCollection = articlesLikesCollection;
-    }
-*/
     
+    public int getNumberOfComments(){
+        return commentsCollection.size();
+    }
 }
