@@ -7,9 +7,12 @@ package com.gruby.sr.entities;
 
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,115 +20,50 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  *
  * @author ja
  */
 
-public class CommentLike{
-    
-}
-
-/*
-@AllArgsConstructor
+@ToString(of = "id")
+@EqualsAndHashCode()
 @NoArgsConstructor
 @Getter
 @Setter
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name = "COMMENTS_LIKES")
-@XmlRootElement
+@Table(name = "comment_likes")
 @NamedQueries({
-    @NamedQuery(name = "CommentLike.findAll", query = "SELECT c FROM Comments_Likes c"),
-    @NamedQuery(name = "CommentLike.findById", query = "SELECT c FROM Comments_Likes c WHERE c.id = :id"),
-    @NamedQuery(name = "CommentLike.findByValue", query = "SELECT c FROM Comments_Likes c WHERE c.value = :value")})
+    @NamedQuery(name = "CommentLike.findAll", query = "SELECT c FROM Comment_Likes c"),
+    @NamedQuery(name = "CommentLike.findById", query = "SELECT c FROM Comment_Likes c WHERE c.id = :id"),
+    //@NamedQuery(name = "CommentLike.countLikes", query = "SELECT COUNT(c) FROM Comment_ Likes c WHERE c.value > 0"),
+    //@NamedQuery(name = "CommentLike.countDislikes", query = "SELECT COUNT(c) FROM Comment_Likes c WHERE c.value < 0"),
+    @NamedQuery(name = "CommentLike.findByUserId", query = "SELECT c FROM Comment_Likes c WHERE c.user_id = :user_id"),
+    @NamedQuery(name = "CommentLike.findByCommentId", query = "SELECT c FROM Comment_Likes c WHERE c.comment_id = :comment_id")
+})
 public class CommentLike implements Serializable, EntityElement {
-    private static final long serialVersionUID = 1L;
+  
     @Id
-    @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private int id = 0;
+
     @NotNull
-    @Column(name = "ID")
-    private Integer id;
-    @Column(name = "VALUE")
-    private Integer value;
-    @JoinColumn(name = "COMMENT_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Comment commentId;
-    @JoinColumn(name = "USER_ID", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
+    @Column(name = "value")
+    private int value = 0;
+  
+    @NotNull
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private User userId;
-
-    public CommentLike() {
-    }
-
-    public CommentLike(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getValue() {
-        return value;
-    }
-
-    public void setValue(Integer value) {
-        this.value = value;
-    }
-
-    public Comment getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(Comment commentId) {
-        this.commentId = commentId;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CommentLike)) {
-            return false;
-        }
-        CommentLike other = (CommentLike) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.gruby.sr.entities.CommentsLikes[ id=" + id + " ]";
-    }
     
+    @NotNull
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private Comment commentId;
 }
-*/

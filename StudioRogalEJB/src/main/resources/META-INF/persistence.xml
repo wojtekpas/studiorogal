@@ -6,11 +6,13 @@
     <class>com.gruby.sr.entities.User</class>
     <class>com.gruby.sr.entities.Article</class>
     <class>com.gruby.sr.entities.Comment</class>
+    <class>com.gruby.sr.entities.ArticleLike</class>
+    <class>com.gruby.sr.entities.CommentLike</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
       <property name="eclipselink.ddl-generation" value="create-tables"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.schema-generation.database.action" value="create-tables"/>
     </properties>
   </persistence-unit>
 </persistence>

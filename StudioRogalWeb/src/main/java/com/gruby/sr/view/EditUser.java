@@ -7,7 +7,7 @@ package com.gruby.sr.view;
 
 import com.gruby.sr.entities.User;
 import com.gruby.sr.enums.Roles;
-import com.gruby.sr.services.StudioRogalService;
+import com.gruby.sr.services.ArticleService;
 import com.gruby.sr.services.UserService;
 import java.io.IOException;
 import java.io.Serializable;

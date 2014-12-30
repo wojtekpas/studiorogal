@@ -7,13 +7,11 @@ package com.gruby.sr.entities;
 
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,13 +23,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,8 +35,7 @@ import lombok.ToString;
  */
 
 @ToString(of = "id")
-@EqualsAndHashCode(exclude = "commentsCollection")
-@AllArgsConstructor
+@EqualsAndHashCode(exclude = {"commentsList", "articleLikesList"})
 @NoArgsConstructor
 @Getter
 @Setter
@@ -56,15 +46,13 @@ import lombok.ToString;
     @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.id = :id"),
     @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article a WHERE a.title = :title"),
     @NamedQuery(name = "Article.findByContent", query = "SELECT a FROM Article a WHERE a.content = :content")
-    //@NamedQuery(name = "Article.findByNumberOfViews", query = "SELECT a FROM Article a WHERE a.numberOfViews = :numberOfViews")
 })
 public class Article implements Serializable, EntityElement {
-    private static final long serialVersionUID = 1L;
-    
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private int id = 0;
     
     @NotNull
     @Size(min = 1, max = 100)
@@ -76,20 +64,26 @@ public class Article implements Serializable, EntityElement {
     @Column(name = "content")
     private String content;
     
-    //@Column(name = "numberOfViews", columnDefinition = "default '0'")   
-    //private Integer numberOfViews;
+    @NotNull
+    @Column(name = "numberOfViews")   
+    private int numberOfViews = 0;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articleId")
-    private List<Comment> commentsCollection;
-    
+    @NotNull
     @JoinColumn(name = "userId", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private User userId;
     
-    //@OneToMany(cascade = CascadeType.ALL, mappedBy = "articleId")
-    //private Collection<ArticleLike> articlesLikesCollection;
+    @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
+    private List<Comment> commentsList;
+    
+    @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
+    private List<ArticleLike> articleLikesList;
     
     public int getNumberOfComments(){
-        return commentsCollection.size();
+        return commentsList.size();
+    }
+    
+    public void incNumberOfViews(){
+        numberOfViews++;
     }
 }

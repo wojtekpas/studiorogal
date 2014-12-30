@@ -1,7 +1,7 @@
 package com.gruby.sr.view;
 
 import com.gruby.sr.entities.Comment;
-import com.gruby.sr.services.StudioRogalService;
+import com.gruby.sr.services.ArticleService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -22,7 +22,7 @@ import lombok.extern.java.Log;
 public class ViewComment implements Serializable {
 
     @EJB
-    StudioRogalService studioRogalService;
+    ArticleService articleService;
         
     @Getter
     @Setter
@@ -34,7 +34,7 @@ public class ViewComment implements Serializable {
     
     public void init() {
         if (comment == null) {
-            comment = studioRogalService.findComment(commentId);
+            comment = articleService.findComment(commentId);
         }
         if (comment == null) {
             try {

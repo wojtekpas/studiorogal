@@ -20,7 +20,7 @@
                     <h:outputText value="#{viewArticle.article.userId.login}"/>
                     <h:outputText value="#{viewArticle.article.numberOfComments} komentarzy"/>
                     <br></br>
-                        <h:dataTable value="#{viewArticle.article.commentsCollection}" var="comment">
+                        <h:dataTable value="#{viewArticle.article.commentsList}" var="comment">
                             <h:column>
                                 <h:outputText value="#{comment.id}"/>
                             </h:column>                           

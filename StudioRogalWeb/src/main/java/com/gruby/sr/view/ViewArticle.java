@@ -2,7 +2,7 @@ package com.gruby.sr.view;
 
 import com.gruby.sr.entities.Article;
 import com.gruby.sr.entities.Comment;
-import com.gruby.sr.services.StudioRogalService;
+import com.gruby.sr.services.ArticleService;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +24,7 @@ import lombok.extern.java.Log;
 public class ViewArticle implements Serializable {
 
     @EJB
-    StudioRogalService studioRogalService;
+    ArticleService articleService;
 
     @Getter
     @Setter
@@ -38,7 +38,7 @@ public class ViewArticle implements Serializable {
     
     public void init() {
         if (article == null) {
-            article = studioRogalService.findArticle(articleId);
+            article = articleService.findArticle(articleId);
         }
         if (article == null) {
             try {
@@ -51,7 +51,7 @@ public class ViewArticle implements Serializable {
     
     public List<Comment> getComments(){
         if(comments == null){
-            comments = studioRogalService.findCommentsForArticle(article);
+            comments = articleService.findCommentsForArticle(article);
             //System.out.println(comments.size());
         }
         return comments;

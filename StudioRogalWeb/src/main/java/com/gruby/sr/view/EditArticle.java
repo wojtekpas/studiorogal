@@ -1,7 +1,7 @@
 package com.gruby.sr.view;
 
 import com.gruby.sr.entities.Article;
-import com.gruby.sr.services.StudioRogalService;
+import com.gruby.sr.services.ArticleService;
 import com.gruby.sr.services.UserService;
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,7 +24,7 @@ import lombok.extern.java.Log;
 public class EditArticle implements Serializable {
 
     @EJB
-    StudioRogalService studioRogalService;
+    ArticleService articleService;
     
     @EJB
     UserService userService;
@@ -39,7 +39,7 @@ public class EditArticle implements Serializable {
 
     public void init() {
         if (article == null && articleId != 0) {           
-            article = studioRogalService.findArticle(articleId);
+            article = articleService.findArticle(articleId);
         } else if (article == null && articleId == 0) {
             article = new Article();
             article.setUserId(userService.getCurrentUser());
@@ -55,7 +55,7 @@ public class EditArticle implements Serializable {
     }
 
     public String saveArticle() {
-        studioRogalService.saveEntityElement(article);
+        articleService.saveEntityElement(article);
         return "list_articles?faces-redirect=true";
     }
 }

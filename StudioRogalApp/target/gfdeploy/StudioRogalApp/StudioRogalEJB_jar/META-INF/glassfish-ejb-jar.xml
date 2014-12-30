@@ -3,7 +3,7 @@
 <glassfish-ejb-jar>
   <enterprise-beans>
     <ejb>
-      <ejb-name>StudioRogalService</ejb-name>
+      <ejb-name>ArticleService</ejb-name>
       <ior-security-config>
         <transport-config>
           <integrity>required</integrity>

@@ -1,7 +1,7 @@
 package com.gruby.sr.converters;
 
 import com.gruby.sr.entities.Comment;
-import com.gruby.sr.services.StudioRogalService;
+import com.gruby.sr.services.ArticleService;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -18,10 +18,10 @@ import javax.faces.convert.Converter;
 public class CommentConverter implements Converter {
 
     @EJB
-    private StudioRogalService studioRogalService;
+    private ArticleService articleService;
 
-    public void setStudioRogalService(StudioRogalService studioRogalService) {
-        this.studioRogalService = studioRogalService;
+    public void setArticleService(ArticleService articleService) {
+        this.articleService = articleService;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class CommentConverter implements Converter {
         if ("---".equals(value)) {
             return null;
         }
-        return studioRogalService.findComment(Integer.parseInt(value));
+        return articleService.findComment(Integer.parseInt(value));
     }
 
     @Override
