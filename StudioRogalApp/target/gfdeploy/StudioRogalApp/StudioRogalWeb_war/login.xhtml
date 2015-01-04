@@ -13,7 +13,8 @@
                     <h:outputText value="#{msg.login}"/> <input type="text"  name= "j_username" /><br/>
                     <h:outputText value="#{msg.password}"/> <input type="password"  name= "j_password" /> <br/>
                     <input type="submit" value="#{msg.login}"/><br/>
-                    <h:link outcome="edit_user.xhtml" value="#{msg.register}"/>
+                    <h:link outcome="edit_user.xhtml" value="#{msg.register}"/><br/>
+                    <h:button value="#{msg.back}" outcome="index.xhtml"/>
                 </form>
             </ui:define>
         </ui:composition>

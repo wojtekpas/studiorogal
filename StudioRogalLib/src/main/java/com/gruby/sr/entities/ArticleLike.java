@@ -39,23 +39,23 @@ import lombok.ToString;
 @Entity
 @Table(name = "article_likes")
 @NamedQueries({
-    @NamedQuery(name = "ArticleLike.findAll", query = "SELECT a FROM Article_Likes a"),
-    @NamedQuery(name = "ArticleLike.findById", query = "SELECT a FROM Article_Likes a WHERE a.id = :id"),
-    //@NamedQuery(name = "ArticleLike.countLikes", query = "SELECT COUNT(a) FROM Article_Likes a WHERE a.value > 0"),
-    //@NamedQuery(name = "ArticleLike.countDislikes", query = "SELECT COUNT(a) FROM Article_Likes a WHERE a.value < 0"),
-    @NamedQuery(name = "ArticleLike.findByUserId", query = "SELECT a FROM Article_Likes a WHERE a.user_id = :user_id"),
-    @NamedQuery(name = "ArticleLike.findByArticleId", query = "SELECT a FROM Article_Likes a WHERE a.article_id = :article_id")
+    @NamedQuery(name = "ArticleLike.findAll", query = "SELECT a FROM ArticleLike a"),
+    @NamedQuery(name = "ArticleLike.findById", query = "SELECT a FROM ArticleLike a WHERE a.id = :id"),
+    @NamedQuery(name = "ArticleLike.countLikes", query = "SELECT COUNT(a) FROM ArticleLike a WHERE a.value > 0"),
+    @NamedQuery(name = "ArticleLike.countDislikes", query = "SELECT COUNT(a) FROM ArticleLike a WHERE a.value < 0"),
+    @NamedQuery(name = "ArticleLike.findByUserId", query = "SELECT a FROM ArticleLike a WHERE a.userId = :userId"),
+    @NamedQuery(name = "ArticleLike.findByArticleId", query = "SELECT a FROM ArticleLike a WHERE a.articleId = :articleId")
 })
 public class ArticleLike implements Serializable, EntityElement {
   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id = 0;
+    private Integer id;
 
     @NotNull
     @Column(name = "value")
-    private int value = 0;
+    private Integer value = 0;
   
     @NotNull
     @JoinColumn(name = "user_id", referencedColumnName = "id")

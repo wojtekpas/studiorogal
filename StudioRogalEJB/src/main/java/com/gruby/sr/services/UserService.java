@@ -93,7 +93,7 @@ public class UserService {
     }
     
     public void saveUser(User user) {
-        if(user.getId() == 0){
+        if(user.getId() == null){
             em.persist(user);
             saveUserWithPassword(user);
         }else{

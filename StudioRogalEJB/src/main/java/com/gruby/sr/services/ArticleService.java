@@ -42,7 +42,7 @@ public class ArticleService {
     
     @RolesAllowed({"Admin", "User"})
     public void saveEntityElement(EntityElement elem) {
-        if(elem.getId() == 0){
+        if(elem.getId() == null){
             em.persist(elem);
         }else{
             em.merge(elem);

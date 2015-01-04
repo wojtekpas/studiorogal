@@ -52,7 +52,7 @@ public class Article implements Serializable, EntityElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id = 0;
+    private Integer id;
     
     @NotNull
     @Size(min = 1, max = 100)
@@ -66,7 +66,7 @@ public class Article implements Serializable, EntityElement {
     
     @NotNull
     @Column(name = "numberOfViews")   
-    private int numberOfViews = 0;
+    private Integer numberOfViews = 0;
     
     @NotNull
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -78,6 +78,9 @@ public class Article implements Serializable, EntityElement {
     
     @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
     private List<ArticleLike> articleLikesList;
+    
+    @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
+    private List<TagUse> tagUsesList;
     
     public int getNumberOfComments(){
         return commentsList.size();

@@ -10,5 +10,5 @@ package com.gruby.sr.interfaces;
  * @author ja
  */
 public interface EntityElement {
-    int getId();
+    Integer getId();
 }

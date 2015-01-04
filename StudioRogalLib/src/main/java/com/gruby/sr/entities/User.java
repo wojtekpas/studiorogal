@@ -5,6 +5,7 @@
  */
 package com.gruby.sr.entities;
 
+import com.gruby.sr.enums.Roles;
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
 import java.util.List;
@@ -44,11 +45,11 @@ import lombok.ToString;
     @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")
 })
 public class User implements Serializable, EntityElement {
-    
+   
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id = 0;
+    private Integer id;
     
     @NotNull
     @Column(name = "name")
@@ -60,7 +61,7 @@ public class User implements Serializable, EntityElement {
 
     @NotNull
     @Column(name = "role")
-    private String role;
+    private String role = Roles.user.toString();
     
     @NotNull
     @Column(name = "password")

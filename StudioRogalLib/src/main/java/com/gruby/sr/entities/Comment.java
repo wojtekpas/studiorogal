@@ -52,7 +52,7 @@ public class Comment implements Serializable, EntityElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id = 0;
+    private Integer id;
     
     @NotNull
     @Size(min = 1, max = 2000)
@@ -69,6 +69,6 @@ public class Comment implements Serializable, EntityElement {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Article articleId;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commentId")
+    @OneToMany(mappedBy = "commentId", cascade = CascadeType.ALL)
     private List<CommentLike> commentLikesList;
 }
