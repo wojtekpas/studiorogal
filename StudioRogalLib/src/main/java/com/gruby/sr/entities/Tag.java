@@ -39,6 +39,7 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name = "Tag.findAll", query = "SELECT t FROM Tag t"),
     @NamedQuery(name = "Tag.findById", query = "SELECT t FROM Tag t WHERE t.id = :id"),
+    @NamedQuery(name = "Tag.findByContent", query = "SELECT t FROM Tag t WHERE t.content = :content")
 })
 public class Tag implements Serializable, EntityElement {
     

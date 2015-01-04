@@ -1,5 +1,6 @@
 package com.gruby.sr.entities;
 
+import com.gruby.sr.enums.Branches;
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +18,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,32 +30,34 @@ import lombok.ToString;
  */
 
 @ToString(of = "id")
-@EqualsAndHashCode()
+@EqualsAndHashCode(exclude = "articlesList")
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "votes")
+@Table(name = "divisions")
 @NamedQueries({
-    @NamedQuery(name = "Vote.findAll", query = "SELECT v FROM Vote v"),
-    @NamedQuery(name = "Vote.findById", query = "SELECT v FROM Vote v WHERE v.id = :id"),
-    @NamedQuery(name = "Vote.findByUserId", query = "SELECT v FROM Vote v WHERE v.userId = :userId"),
-    @NamedQuery(name = "Vote.findByAnswerId", query = "SELECT v FROM Vote v WHERE v.answerId = :answerId")
+    @NamedQuery(name = "Division.findAll", query = "SELECT d FROM Division d"),
+    @NamedQuery(name = "Division.findById", query = "SELECT d FROM Division d WHERE d.id = :id"),
+    @NamedQuery(name = "Division.findByName", query = "SELECT d FROM Division d WHERE d.name = :name"),
+    @NamedQuery(name = "Division.findByDivisionId", query = "SELECT d FROM Division d WHERE d.branchId = :branchId")
 })
-public class Vote implements Serializable, EntityElement {
-    
+public class Division implements Serializable, EntityElement {
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     
     @NotNull
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private User userId;
+    @Column(name = "name")
+    private String name;
     
     @NotNull
-    @JoinColumn(name = "answerId", referencedColumnName = "id")
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Answer answerId;
+    @JoinColumn(name = "branchId", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Branch branchId;
+    
+    @OneToMany(mappedBy = "divisionId", cascade = CascadeType.ALL)
+    private List<Comment> articlesList;
 }

@@ -1,8 +1,8 @@
 package com.gruby.sr.entities;
 
+import com.gruby.sr.enums.Branches;
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,7 +15,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,33 +26,29 @@ import lombok.ToString;
  * @author ja
  */
 
-@ToString(of = "id")
-@EqualsAndHashCode(exclude = "answersList")
+@ToString(of = "name")
+@EqualsAndHashCode(exclude = "divisionsList")
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-@Table(name = "probes")
+@Table(name = "branches")
 @NamedQueries({
-    @NamedQuery(name = "Probe.findAll", query = "SELECT p FROM Probe p"),
-    @NamedQuery(name = "Probe.findById", query = "SELECT p FROM Probe p WHERE p.id = :id")
+    @NamedQuery(name = "Branch.findAll", query = "SELECT b FROM Branch b"),
+    @NamedQuery(name = "Branch.findById", query = "SELECT b FROM Branch b WHERE b.id = :id"),
+    @NamedQuery(name = "Branch.findByName", query = "SELECT b FROM Branch b WHERE b.name = :name")
 })
-public class Probe implements Serializable, EntityElement {
-    
+public class Branch implements Serializable, EntityElement {
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
     
     @NotNull
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "name")
+    private String name = Branches.football.toString();
     
-    @NotNull
-    @Size(min = 1, max = 2000)
-    @Column(name = "question")
-    private String question;
-    
-    @OneToMany(mappedBy = "probeId", cascade = CascadeType.ALL)
-    private List<TagUse> answersList;
+    @OneToMany(mappedBy = "branchId", cascade = CascadeType.ALL)
+    private List<Division> divisionsList;  
 }

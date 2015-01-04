@@ -54,5 +54,5 @@ public class TagUse implements Serializable, EntityElement {
     @NotNull
     @JoinColumn(name = "tagId", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private User tagId;
+    private Tag tagId;
 }

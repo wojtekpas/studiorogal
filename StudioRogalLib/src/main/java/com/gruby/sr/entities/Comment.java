@@ -7,6 +7,7 @@ package com.gruby.sr.entities;
 
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,8 +45,8 @@ import lombok.ToString;
 @NamedQueries({
     @NamedQuery(name = "Comment.findAll", query = "SELECT c FROM Comment c"),
     @NamedQuery(name = "Comment.findById", query = "SELECT c FROM Comment c WHERE c.id = :id"),
-    @NamedQuery(name = "Comment.findByArticleId", query = "SELECT c FROM Comment c WHERE c.articleId = :articleId"),
-    @NamedQuery(name = "Comment.findByUserId", query = "SELECT c FROM Comment c WHERE c.userId = :userId")
+    @NamedQuery(name = "Comment.findByUserId", query = "SELECT c FROM Comment c WHERE c.userId = :userId"),
+    @NamedQuery(name = "Comment.findByArticleId", query = "SELECT c FROM Comment c WHERE c.articleId = :articleId")
 })
 public class Comment implements Serializable, EntityElement {
     
@@ -53,6 +54,10 @@ public class Comment implements Serializable, EntityElement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
+    
+    @NotNull
+    @Column(name = "date")
+    private Date date;
     
     @NotNull
     @Size(min = 1, max = 2000)

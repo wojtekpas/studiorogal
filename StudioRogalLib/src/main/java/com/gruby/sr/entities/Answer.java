@@ -2,6 +2,7 @@ package com.gruby.sr.entities;
 
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,7 +30,7 @@ import lombok.ToString;
  */
 
 @ToString(of = "id")
-@EqualsAndHashCode()
+@EqualsAndHashCode(exclude = "votesList")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -55,4 +57,7 @@ public class Answer implements Serializable, EntityElement {
     @JoinColumn(name = "probeId", referencedColumnName = "id")
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Article probeId;
+    
+    @OneToMany(mappedBy = "answerId", cascade = CascadeType.ALL)
+    private List<TagUse> votesList;
 }

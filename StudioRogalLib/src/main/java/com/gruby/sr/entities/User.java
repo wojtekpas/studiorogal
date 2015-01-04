@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gruby.sr.entities;
 
 import com.gruby.sr.enums.Roles;
 import com.gruby.sr.interfaces.EntityElement;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,6 +46,14 @@ public class User implements Serializable, EntityElement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    @NotNull
+    @Column(name = "registrationDate")
+    private Date registrationDate;
+    
+    @NotNull
+    @Column(name = "lastLoginDate")
+    private Date lastLoginDate;
     
     @NotNull
     @Column(name = "name")
